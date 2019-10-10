@@ -8,26 +8,27 @@ error_reporting(E_ALL);
 require_once '../classes/Blackjack.php';
 session_start();
 
-if (isset($_SESSION["player"])) {
-    $Player = new Blackjack($_SESSION["player"]);
+if (isset($_SESSION["player"]) && isset($_SESSION["playerCards"])) {
+    $Player = new Blackjack($_SESSION["player"], $_SESSION["playerCards"]);
 } else {
-    $Player = new Blackjack(0);
+    $Player = new Blackjack(0, array());
 }
 if (isset($_SESSION["dealer"])) {
-    $Dealer = new Blackjack($_SESSION["dealer"]);
+    $Dealer = new Blackjack($_SESSION["dealer"], $_SESSION["dealerCards"]);
 } else {
-    $Dealer = new Blackjack(0);
+    $Dealer = new Blackjack(0, array());
 }
 
 if (isset($_REQUEST['btn_submit'])) {
     if ($_REQUEST['btn_submit'] == "Hit") {
         $Player->Hit();
         $_SESSION["player"] = $Player->getScore();
+        $_SESSION["playerCards"] = $Player->getCards();
     } else if ($_REQUEST['btn_submit'] == "Stand") {
         while ($Dealer->getScore() < 16) {
-            if ($Dealer->getScore() <= 15) {
-                $Dealer->Hit();
-            }
+            $Dealer->Hit();
+            $_SESSION["DealerCards"] = $Dealer->getCards();
+
         }
         $_SESSION["dealer"] = $Dealer->getScore();
         $Player->Stand($Dealer->getScore());
