@@ -24,11 +24,13 @@ if (isset($_REQUEST['btn_submit'])) {
         $Player->Hit();
         $_SESSION["player"] = $Player->getScore();
         $_SESSION["playerCards"] = $Player->getCards();
+        if ($Player->getScore() > 21) {
+            $Player->Stand($Dealer->getScore());
+        }
     } else if ($_REQUEST['btn_submit'] == "Stand") {
         while ($Dealer->getScore() < 16) {
             $Dealer->Hit();
             $_SESSION["DealerCards"] = $Dealer->getCards();
-
         }
         $_SESSION["dealer"] = $Dealer->getScore();
         $Player->Stand($Dealer->getScore());
@@ -38,19 +40,22 @@ if (isset($_REQUEST['btn_submit'])) {
 }
 
 ?>
-    <!doctype html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport"
-              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Document</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-              crossorigin="anonymous">
-    </head>
-    <body>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container w-50 p-3 text-center border border-dark">
+    <h1>Blackjack PhP</h1>
 
     <div>
         <span>Player: <?php echo $Player->getScore(); ?></span>
@@ -64,15 +69,19 @@ if (isset($_REQUEST['btn_submit'])) {
         <input type="submit" name="btn_submit" value="Surrender"/>
     </form>
 
-    </body>
-    </html>
+    <?php
 
-<?php
+    echo '<br />';
+    var_dump($_SESSION);
+    echo '<br />';
+    var_dump($_POST);
+    echo '<br />';
+    var_dump($_GET);
+    ?>
 
-var_dump($_SESSION);
-echo '<br />';
-var_dump($_POST);
-echo '<br />';
-var_dump($_GET);
-echo '<br />';
-var_dump($Player);
+</div>
+
+</body>
+</html>
+
+
