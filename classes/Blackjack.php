@@ -56,7 +56,7 @@ class Blackjack
         if ($playerDiff == $dealerDiff){
             header("location: home.php?exit=draw&player=" . $this->score . "&dealer=" . $dealer->getScore());
         }
-        if ($playerDiff <= 0 && $dealerDiff < 0){
+        if ($playerDiff <= 0 && $dealerDiff <= 0){
             if ($playerDiff > $dealerDiff){
                 header("location: home.php?exit=win&player=" . $this->score . "&dealer=" . $dealer->getScore());
             }
