@@ -5,6 +5,7 @@ class Blackjack
 {
     const CARD_MIN = 1;
     const CARD_MAX = 11;
+    const TWENTY_ONE = 21;
 
     /* @var int */
     private $score;
@@ -44,8 +45,8 @@ class Blackjack
     {
         session_destroy();
 
-        $playerDiff = $this->score - 21;
-        $dealerDiff = $dealer->getScore() - 21;
+        $playerDiff = $this->score - self::TWENTY_ONE;
+        $dealerDiff = $dealer->getScore() - self::TWENTY_ONE;
 
         if ($playerDiff > 0 && $dealerDiff <= 0) {
             header("location: home.php?exit=lose&player=" . $this->score . "&dealer=" . $dealer->getScore());

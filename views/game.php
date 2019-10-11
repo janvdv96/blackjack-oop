@@ -53,10 +53,8 @@ if (isset($_REQUEST['btn_submit'])) {
           crossorigin="anonymous">
 </head>
 <body>
-
 <div class="container w-50 p-3 text-center border border-dark">
     <h1>Blackjack PhP</h1>
-
     <div>
         <span>Player: <?php echo $Player->getScore(); ?></span>
         <br/>
@@ -68,9 +66,7 @@ if (isset($_REQUEST['btn_submit'])) {
         <input type="submit" name="btn_submit" value="Stand"/>
         <input type="submit" name="btn_submit" value="Surrender"/>
     </form>
-
     <?php
-
     echo '<br />';
     var_dump($_SESSION);
     echo '<br />';
@@ -78,10 +74,6 @@ if (isset($_REQUEST['btn_submit'])) {
     echo '<br />';
     var_dump($_GET);
     ?>
-
 </div>
-
 </body>
 </html>
-
-
