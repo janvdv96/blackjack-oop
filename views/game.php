@@ -25,7 +25,7 @@ if (isset($_REQUEST['btn_submit'])) {
         $_SESSION["player"] = $Player->getScore();
         $_SESSION["playerCards"] = $Player->getCards();
         if ($Player->getScore() > 21) {
-            $Player->Stand($Dealer->getScore());
+            $Player->Stand($Dealer);
         }
     } else if ($_REQUEST['btn_submit'] == "Stand") {
         while ($Dealer->getScore() < 16) {
@@ -33,7 +33,7 @@ if (isset($_REQUEST['btn_submit'])) {
             $_SESSION["DealerCards"] = $Dealer->getCards();
         }
         $_SESSION["dealer"] = $Dealer->getScore();
-        $Player->Stand($Dealer->getScore());
+        $Player->Stand($Dealer);
     } else if ($_REQUEST['btn_submit'] == "Surrender") {
         $Player->Surrender();
     }

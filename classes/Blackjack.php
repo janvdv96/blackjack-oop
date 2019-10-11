@@ -29,7 +29,7 @@ class Blackjack
         try {
             $random = random_int(self::CARD_MIN, self::CARD_MAX);
         } catch (Exception $e) {
-            die("random failed lmao");
+            die("random failed");
         }
         array_push($this->cards, $random);
         $this->score += $random;
@@ -40,29 +40,29 @@ class Blackjack
         return $this->cards;
     }
 
-    public function Stand($dealerScore)
+    public function Stand(Blackjack $dealer)
     {
         session_destroy();
-        if ($this->score > 21) {
-            header("location: home.php?exit=yikes&player=" . $this->score . "&dealer=" . $dealerScore);
+
+        $playerDiff = $this->score - 21;
+        $dealerDiff = $dealer->getScore() - 21;
+
+        if ($playerDiff > 0 && $dealerDiff <= 0) {
+            header("location: home.php?exit=lose&player=" . $this->score . "&dealer=" . $dealer->getScore());
         }
-        if ($this->score < 21 && $dealerScore < 21 && $this->score > $dealerScore) {
-            header("location: home.php?exit=win&player=" . $this->score . "&dealer=" . $dealerScore);
+        if ($playerDiff <= 0 && $dealerDiff > 0) {
+            header("location: home.php?exit=win&player=" . $this->score . "&dealer=" . $dealer->getScore());
         }
-        if ($this->score < 21 && $dealerScore < 21 && $this->score < $dealerScore) {
-            header("location: home.php?exit=lose&player=" . $this->score . "&dealer=" . $dealerScore);
+        if ($playerDiff == $dealerDiff){
+            header("location: home.php?exit=draw&player=" . $this->score . "&dealer=" . $dealer->getScore());
         }
-        if ($this->score < 21 && $dealerScore > 21) {
-            header("location: home.php?exit=win&player=" . $this->score . "&dealer=" . $dealerScore);
-        }
-        if ($this->score == $dealerScore) {
-            header("location: home.php?exit=draw&player=" . $this->score . "&dealer=" . $dealerScore);
-        }
-        if ($this->score == 21 && $dealerScore != 21) {
-            header("location: home.php?exit=win&player=" . $this->score . "&dealer=" . $dealerScore);
-        }
-        if ($this->score < 21 && $dealerScore == 21) {
-            header("location: home.php?exit=yikes&player=" . $this->score . "&dealer=" . $dealerScore);
+        if ($playerDiff <= 0 && $dealerDiff < 0){
+            if ($playerDiff > $dealerDiff){
+                header("location: home.php?exit=win&player=" . $this->score . "&dealer=" . $dealer->getScore());
+            }
+            else {
+                header("location: home.php?exit=lose&player=" . $this->score . "&dealer=" . $dealer->getScore());
+            }
         }
     }
 

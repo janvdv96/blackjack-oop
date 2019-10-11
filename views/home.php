@@ -15,9 +15,6 @@ if (isset($_GET["exit"]) && isset($_GET["player"]) && isset($_GET["dealer"])) {
         case "lose":
             $message = "You lose! You had: " . $_GET["player"] . ", Dealer had: " . $_GET["dealer"];
             break;
-        case "yikes":
-            $message = "You lose! You had: " . $_GET["player"];
-            break;
     }
 }
 
