@@ -1,40 +1,40 @@
 <?php
 declare(strict_types=1);
 
-ini_set('display_errors', "1");
-ini_set('display_startup_errors', "1");
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
 require_once '../classes/Blackjack.php';
 session_start();
 
-if (isset($_SESSION["player"]) && isset($_SESSION["playerCards"])) {
-    $Player = new Blackjack($_SESSION["player"], $_SESSION["playerCards"]);
+if (isset($_SESSION['player'], $_SESSION['playerCards'])) {
+    $Player = new Blackjack($_SESSION['player'], $_SESSION['playerCards']);
 } else {
     $Player = new Blackjack(0, array());
 }
-if (isset($_SESSION["dealer"])) {
-    $Dealer = new Blackjack($_SESSION["dealer"], $_SESSION["dealerCards"]);
+if (isset($_SESSION['dealer'])) {
+    $Dealer = new Blackjack($_SESSION['dealer'], $_SESSION['dealerCards']);
 } else {
     $Dealer = new Blackjack(0, array());
 }
 
 if (isset($_REQUEST['btn_submit'])) {
-    if ($_REQUEST['btn_submit'] == "Hit") {
+    if ($_REQUEST['btn_submit'] === 'Hit') {
         $Player->Hit();
-        $_SESSION["player"] = $Player->getScore();
-        $_SESSION["playerCards"] = $Player->getCards();
+        $_SESSION['player'] = $Player->getScore();
+        $_SESSION['playerCards'] = $Player->getCards();
         if ($Player->getScore() > 21) {
             $Player->Stand($Dealer);
         }
-    } else if ($_REQUEST['btn_submit'] == "Stand") {
+    } else if ($_REQUEST['btn_submit'] === 'Stand') {
         while ($Dealer->getScore() < 16) {
             $Dealer->Hit();
-            $_SESSION["DealerCards"] = $Dealer->getCards();
+            $_SESSION['DealerCards'] = $Dealer->getCards();
         }
-        $_SESSION["dealer"] = $Dealer->getScore();
+        $_SESSION['dealer'] = $Dealer->getScore();
         $Player->Stand($Dealer);
-    } else if ($_REQUEST['btn_submit'] == "Surrender") {
+    } else if ($_REQUEST['btn_submit'] === 'Surrender') {
         $Player->Surrender();
     }
 }

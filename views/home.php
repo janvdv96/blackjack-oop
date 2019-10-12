@@ -1,19 +1,19 @@
 <?php
 
-if ($_GET["exit"] == "surr"){
-    $message = "You lose! You gave up!";
+if ($_GET['exit'] === 'surr'){
+    $message = 'You lose! You gave up!';
 }
 
-if (isset($_GET["exit"]) && isset($_GET["player"]) && isset($_GET["dealer"])) {
-    switch ($_GET["exit"]) {
-        case "win":
-            $message = "You win! You had: " . $_GET["player"] . ", Dealer had: " . $_GET["dealer"];
+if (isset($_GET['exit'], $_GET['player'], $_GET['dealer'])) {
+    switch ($_GET['exit']) {
+        case 'win':
+            $message = 'You win! You had: ' . $_GET['player'] . ', Dealer had: ' . $_GET['dealer'];
             break;
-        case "draw":
-            $message = "It's a draw! You had: " . $_GET["player"] . ", Dealer had: " . $_GET["dealer"];
+        case 'draw':
+            $message = "It's a draw! You had: " . $_GET['player'] . ', Dealer had: ' . $_GET['dealer'];
             break;
-        case "lose":
-            $message = "You lose! You had: " . $_GET["player"] . ", Dealer had: " . $_GET["dealer"];
+        case 'lose':
+            $message = 'You lose! You had: ' . $_GET['player'] . ', Dealer had: ' . $_GET['dealer'];
             break;
     }
 }
@@ -36,7 +36,7 @@ if (isset($_GET["exit"]) && isset($_GET["player"]) && isset($_GET["dealer"])) {
 
 <div class="container w-50 p-3 text-center">
     <h1>Blackjack PhP</h1>
-    <?php if (isset($_GET["exit"])) {
+    <?php if (isset($_GET['exit'])) {
         echo '<div class="alert alert-info mb-2 p-1" role="alert">' . $message . '</div>';
     } ?>
 

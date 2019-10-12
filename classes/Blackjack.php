@@ -3,9 +3,9 @@
 
 class Blackjack
 {
-    const CARD_MIN = 1;
-    const CARD_MAX = 11;
-    const TWENTY_ONE = 21;
+    public const CARD_MIN = 1;
+    public const CARD_MAX = 11;
+    public const TWENTY_ONE = 21;
 
     /* @var int */
     private $score;
@@ -30,9 +30,9 @@ class Blackjack
         try {
             $random = random_int(self::CARD_MIN, self::CARD_MAX);
         } catch (Exception $e) {
-            die("random failed");
+            die('random failed');
         }
-        array_push($this->cards, $random);
+        $this->cards[] = $random;
         $this->score += $random;
     }
 
@@ -41,7 +41,7 @@ class Blackjack
         return $this->cards;
     }
 
-    public function Stand(Blackjack $dealer)
+    public function Stand(Blackjack $dealer): void
     {
         session_destroy();
 
@@ -49,26 +49,26 @@ class Blackjack
         $dealerDiff = $dealer->getScore() - self::TWENTY_ONE;
 
         if ($playerDiff > 0 && $dealerDiff <= 0) {
-            header("location: home.php?exit=lose&player=" . $this->score . "&dealer=" . $dealer->getScore());
+            header('location: home.php?exit=lose&player=' . $this->score . '&dealer=' . $dealer->getScore());
         }
         if ($playerDiff <= 0 && $dealerDiff > 0) {
-            header("location: home.php?exit=win&player=" . $this->score . "&dealer=" . $dealer->getScore());
+            header('location: home.php?exit=win&player=' . $this->score . '&dealer=' . $dealer->getScore());
         }
-        if ($playerDiff == $dealerDiff){
-            header("location: home.php?exit=draw&player=" . $this->score . "&dealer=" . $dealer->getScore());
+        if ($playerDiff === $dealerDiff){
+            header('location: home.php?exit=draw&player=' . $this->score . '&dealer=' . $dealer->getScore());
         }
         if ($playerDiff <= 0 && $dealerDiff <= 0){
             if ($playerDiff > $dealerDiff){
-                header("location: home.php?exit=win&player=" . $this->score . "&dealer=" . $dealer->getScore());
+                header('location: home.php?exit=win&player=' . $this->score . '&dealer=' . $dealer->getScore());
             }
             else {
-                header("location: home.php?exit=lose&player=" . $this->score . "&dealer=" . $dealer->getScore());
+                header('location: home.php?exit=lose&player=' . $this->score . '&dealer=' . $dealer->getScore());
             }
         }
     }
 
-    public function Surrender()
+    public function Surrender(): void
     {
-        header("location: home.php?exit=surr");
+        header('location: home.php?exit=surr');
     }
 }
