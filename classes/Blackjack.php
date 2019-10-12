@@ -1,6 +1,10 @@
 <?php
+declare(strict_types=1);
 
 
+/**
+ * Class Blackjack
+ */
 class Blackjack
 {
     public const CARD_MIN = 1;
@@ -13,7 +17,6 @@ class Blackjack
     /* @var array */
     private $cards;
 
-
     public function __construct(int $_score, array $_cards)
     {
         $this->score = $_score;
@@ -25,6 +28,11 @@ class Blackjack
         return $this->score;
     }
 
+    public function getCards(): array
+    {
+        return $this->cards;
+    }
+
     public function Hit(): void
     {
         try {
@@ -34,11 +42,6 @@ class Blackjack
         }
         $this->cards[] = $random;
         $this->score += $random;
-    }
-
-    public function getCards(): array
-    {
-        return $this->cards;
     }
 
     public function Stand(Blackjack $dealer): void
@@ -54,14 +57,13 @@ class Blackjack
         if ($playerDiff <= 0 && $dealerDiff > 0) {
             header('location: home.php?exit=win&player=' . $this->score . '&dealer=' . $dealer->getScore());
         }
-        if ($playerDiff === $dealerDiff){
+        if ($playerDiff === $dealerDiff) {
             header('location: home.php?exit=draw&player=' . $this->score . '&dealer=' . $dealer->getScore());
         }
-        if ($playerDiff <= 0 && $dealerDiff <= 0){
-            if ($playerDiff > $dealerDiff){
+        if ($playerDiff <= 0 && $dealerDiff <= 0) {
+            if ($playerDiff > $dealerDiff) {
                 header('location: home.php?exit=win&player=' . $this->score . '&dealer=' . $dealer->getScore());
-            }
-            else {
+            } else {
                 header('location: home.php?exit=lose&player=' . $this->score . '&dealer=' . $dealer->getScore());
             }
         }

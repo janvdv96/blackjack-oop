@@ -11,12 +11,12 @@ session_start();
 if (isset($_SESSION['player'], $_SESSION['playerCards'])) {
     $Player = new Blackjack($_SESSION['player'], $_SESSION['playerCards']);
 } else {
-    $Player = new Blackjack(0, array());
+    $Player = new Blackjack(0, []);
 }
 if (isset($_SESSION['dealer'])) {
     $Dealer = new Blackjack($_SESSION['dealer'], $_SESSION['dealerCards']);
 } else {
-    $Dealer = new Blackjack(0, array());
+    $Dealer = new Blackjack(0, []);
 }
 
 if (isset($_REQUEST['btn_submit'])) {
@@ -66,14 +66,6 @@ if (isset($_REQUEST['btn_submit'])) {
         <input type="submit" name="btn_submit" value="Stand"/>
         <input type="submit" name="btn_submit" value="Surrender"/>
     </form>
-    <?php
-    echo '<br />';
-    var_dump($_SESSION);
-    echo '<br />';
-    var_dump($_POST);
-    echo '<br />';
-    var_dump($_GET);
-    ?>
 </div>
 </body>
 </html>
